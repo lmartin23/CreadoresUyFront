@@ -1,0 +1,48 @@
+<main>
+    <section class="section section-shaped">
+      <div class="shape shape-style-1 shape-primary">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="d-flex justify-content-center">
+        <div class="cont">
+         
+                <div class="card-deck justify-content-center">
+                  <div *ngFor='let plan of plans' class="mb-4">
+                    <div class="card cards h-100">
+                      <br><div class="card-title">{{plan.name}}</div>
+                      <img *ngIf="plan.image!=''" class="card-img-top" style="margin: 0 auto;" src="{{plan.image}}">  
+                        <font color="#27798f" size="5" face="Open Sans"><br *ngIf="plan.image!=''"><i><b>${{plan.price | number: '1.0-2'}}</b></i></font><font color="#27798f" size="3" face="Open Sans"> /mes</font>            
+                         <div class="card-body">
+                              <button mat-stroked-button disabled="{{plan.idPlan==planActual}}" (click)="initConfig(plan.price, plan.idPlan);" (click)="triggerModal(modalData)" style="background-color: #569e86;">Unirme</button><br><br>
+                              <div class="card-text"  >{{plan.description}}</div><br>
+                              <font color="#27798f" size="3" face="Open Sans"><br><i><b>Beneficios:</b></i></font>
+                            <ul style="padding: 0;" class="ml-4 mt-2">
+                              <li *ngFor="let element of plan.benefits" style="font-family: Open Sans; font-size: small;color: #2c4e57; text-align: start;" role="listitem">{{element}}</li>
+                            </ul>
+                         </div>
+                      </div> 
+                    </div>
+                  </div> 
+                </div>
+            </div>
+            <ng-template #modalData let-modal>
+              <div class="modal-header">
+                <img src="./assets/img/theme/creaplan.png" style="float: right; width: 80%;" class="img-fluid"><br>
+                <button #closeButton id="closeButton" type="button" class="close" style="margin-top: -10px;" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Puedes optar por pagos seguros Paypal/Crédito/Débito:</p><br>
+                <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+              </div>
+            </ng-template>
+      </section>
+</main>

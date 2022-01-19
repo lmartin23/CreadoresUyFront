@@ -1,0 +1,102 @@
+<main>
+  <section class="section section-shaped section-lg">
+    <div class="shape shape-style-1 shape-primary">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="container cont pt-lg-md">
+      <div class="row justify-content-center">
+        <div class="col-lg-7">
+          <div class="card bg-secondary shadow border-0">
+            <div class="card-header bg-white ">
+              <img src="./assets/img/theme/register.png" style="margin-left: 30px; width: 90%;" class="img-fluid"><br>
+            </div>
+            <div class="card-body px-lg-5 py-lg-4">
+              <div class="text-center text-muted mb-4">
+                <small>Completa los siguientes datos:</small>
+              </div>
+              <form role="form" [formGroup]="userForm">
+                <div *ngIf="!Success && subbmited" class="alert alert-danger d-flex align-items-center mb-4" role="alert">
+                  <i class="bi bi-exclamation-triangle-fill mr-2" width="24" height="24"></i>
+                  <div>
+                    El email ingresado ya pertenece a un usuario
+                  </div>
+                </div>
+                <div class="form-group" [ngClass]="{'focused':focus===true}">
+                  <div class="input-group input-group-alternative" [ngClass]="{inputError:!noRequiredName}">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                    </div>
+                    <input formControlName="name" #name name="name" class="form-control" placeholder="Name" type="text" (focus)="focus=true" (blur)="focus=false">
+                  </div>
+                  <div class="inputAlert" *ngIf="!noRequiredName">El nombre es requerido</div>
+                </div>
+                <div class="form-group" [ngClass]="{'focused':focus1===true}">
+                  <div class="input-group input-group-alternative" [ngClass]="{inputError:!noRequiredEmail || !validEmail}">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                    </div>
+                    <input formControlName="email" #email id="email" class="form-control" placeholder="Email" type="email" (focus)="focus1=true" (blur)="focus1=false">
+                  </div>
+                  <div class="inputAlert" *ngIf="!noRequiredEmail">El email es requerido</div>
+                  <div class="inputAlert" *ngIf="!validEmail">El email no es correcto</div>
+                </div>
+                <div class="form-group" [ngClass]="{'focused':focus2===true}">
+                  <div class="input-group input-group-alternative" [ngClass]="{inputError:!MinLenght || !noRequiredPassword}">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                    </div>
+                    <input formControlName="password" #password id="password" class="form-control" placeholder="Password" type="password"
+                     (focus)="focus2=true" (blur)="focus2=false">
+                  </div>
+                  <div class="inputAlert" *ngIf="!noRequiredPassword">La contraseña es requerida</div>
+                </div>
+                <div style="margin-bottom: 16px; background-color: #fff;" class="input-group img-input input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="bi bi-image-fill"></i></span>
+                  </div>
+                  <input accept="image/png, image/jpeg" #profile class="form-control form-control-md" id="formFileLg" type="file" (change)="detectFiles($event)" style="display:none; width: 100%;" />
+                  <label for="formFileLg" style="cursor: pointer; color: #aeb6be; margin: 0; width: 80%;">Elegir Imagen de Perfil</label>
+                </div>
+             
+                <div class="row my-2">
+                  <div class="col-12">
+                    <div class="custom-control custom-control-alternative custom-checkbox">
+                      <input #politic class="custom-control-input" id="customCheckRegister"
+                       type="checkbox" [checked]="isChecked" (change)="isChecked=!isChecked">
+                      <label class="custom-control-label" for="customCheckRegister">
+                        <span>Acepto los términos y condiciones
+                          <a href="javascript:void(0)">Potiticas de Privacidad</a>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="urls[0]!=''" class="d-flex flex-row flex-wrap justify-content-center">
+                  <img [src]="urls[0]" class="img-fluid img-profile img-thumbnail shadow">
+                </div>
+                <div *ngIf="Success && subbmited" class="alert alert-success d-flex align-items-center mb-0" role="alert">
+                  <i class="bi bi-check-lg mr-2" width="24" height="24"></i>
+                  <div>
+                    Usuario registrado con exito
+                  </div>
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary mt-4" [disabled]="!isChecked" (click)="crearUsuario(name.value,email.value,password.value)"
+                   style= "background-color: #27798f">Crear Cuenta</button>
+                </div>
+              </form>
+            </div>
+            <mat-progress-bar *ngIf="showBar" mode="indeterminate"></mat-progress-bar>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

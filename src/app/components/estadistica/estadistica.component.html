@@ -1,0 +1,25 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container" style="display: block;">
+    <section class="section section-shaped section-lg">
+        <main>
+            <section class="section section-shaped section-lg graph_size">
+                <div class="cont justify-content-center content_position">
+                    <div class="card content_position">
+                        <div class="card-body content_position">
+                            <h5 class="card-title">Estadisticas</h5>
+                            <section class="mb-0">
+                                <div>
+                                    <canvas baseChart width="500" height="200" [datasets]="lineChartData"
+                                        [labels]="lineChartLabels" [options]="lineChartOptions"
+                                        [legend]="lineChartLegend" [chartType]="lineChartType"
+                                        [plugins]="lineChartPlugins" [colors]="chartColors">
+                                    </canvas>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </section>
+</div>

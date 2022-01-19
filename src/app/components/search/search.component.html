@@ -1,0 +1,59 @@
+<main>
+  <section class="section section-shaped">
+    <div class="shape shape-style-1 shape-primary">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="cont">
+        <div class="card shadow">
+          <div class="col-12 card card-main bg-white">
+            <form class="search-container w-100">
+              <div class="input-group">
+                <button type="submit" (click)="getProrfileBySearch()" class="button-search">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <mat-icon aria-hidden="false" aria-label="Example home icon">search</mat-icon>
+                    </span>
+                  </div>
+                </button>
+                <input (input)="inputText($event)" value="{{searchString}}" class="form-control" placeholder="Buscar..." type="search" (focus)="focus=true" (blur)="focus=false">
+              </div>
+              <button type="button" (click)="getProrfileBySearch()" style="font-size: large;" mat-raised-button>Buscar</button> 
+            </form>
+            <div class="search-results" infinite-scroll
+            [infiniteScrollDistance]="2"
+            [infiniteScrollThrottle]="50"
+            (scrolled)="onScroll()"
+            >
+              <div *ngFor="let element of searchProfile" class="cont-profiles mt-2">
+                <div class="card-main">
+                  <div (click)="navToSearch(element['nickName'])" class="profile-container">
+                    <img class="img-fluid img-circle img-profile" src="{{element['creatorImage']}}"  alt="Card image cap">
+                    <div class="text-container">
+                      <h3 class="creator-name">{{element['creatorName']}}</h3>
+                      <p class="descripcion p-2 mt-2 bg-primary rounded text-white stats">{{element['contentDescription']}}</p>
+                      <p *ngIf="element['categorys'].length==1" class="descripcion">Creando {{element['categorys'][0]}} </p>
+                      <p *ngIf="element['categorys'].length>1" class="descripcion">Creando {{element['categorys'][0]}} y {{element['categorys'][1]}}</p>
+                    </div>
+                    <div style="text-align: center;" class="namber-cont">
+                      <p class="suscriptores">Suscriptores</p> <span >{{element['cantSubscriptores']}}</span>
+                      <p class="suscriptores">Seguidores</p> <span >{{element['cantSeguidores']}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="hr-search"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

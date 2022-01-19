@@ -1,0 +1,104 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container" style="display: block;">
+    <section class="section section-shaped section-lg">
+        <div class="cont justify-content-center">
+            <div class="card" style="margin-top: 100px;">
+                <div class="card-body">
+                    <div class="container bootstrap snippets bootdey">
+                        <div class="tile tile-alt" id="messages-main">
+                            <div class="ms-menu">
+                                <div class="ms-user clearfix">
+                                    <img src="{{img}}" alt="" class="img-avatar pull-left">
+                                    <div>Conectado como <br> {{nombre}}</div>
+                                </div>
+
+                                <div class="p-15">
+                                    <div class="dropdown">
+
+                                        <ul class="dropdown-menu dm-icon w-100">
+                                            <li><a href=""><i class="fa fa-envelope"></i> Messages</a></li>
+                                            <li><a href=""><i class="fa fa-users"></i> Contacts</a></li>
+                                            <li><a href=""><i class="fa fa-format-list-bulleted"> </i>Todo Lists</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div style="overflow: auto;">
+                                <div *ngFor="let chat of usersChats" class="list-group lg-alt">
+
+                                    <button class="list-group-item media"
+                                        (click)="changeChatBtn(chat.idUser,chat.name,chat.imgProfile)">
+                                        <div class="pull-left">
+                                            <img src="{{chat.imgProfile}}" alt="" class="img-avatar">
+                                        </div>
+                                        <div class="media-body">
+                                            <small class="list-group-item-heading">{{chat.name}}</small>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+
+
+                            </div>
+
+                            <div class="ms-body">
+                                <div class="action-header clearfix">
+
+
+                                    <div *ngIf="currentUser!==undefined" class="pull-left hidden-xs">
+                                        <img src="{{currentUser.imgProfile}}" alt="" class="img-avatar mr-2">
+                                        <div class="lv-avatar pull-left">
+
+                                        </div>
+                                        <span>{{currentUser.name}}</span>
+                                    </div>
+
+
+                                </div>
+                                <div style="overflow: auto;">
+                                <div *ngFor="let chat of http.mensajes" id="app-mensajes">
+                                    <div *ngIf="chat.uid != idUser; else receptor" class="message-feed right">
+                                        <div class="pull-right">
+                                            <img src="{{img}}" alt="" class="img-avatar">
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="mf-content">
+                                                {{chat.mensaje}}
+                                            </div>
+                                            <small class="mf-date"><i class="fa fa-clock-o"></i> {{chat.fecha | date:'short':'UTC'}}}</small>
+                                        </div>
+                                    </div>
+                                    <ng-template #receptor>
+                                        <div class="message-feed media">
+                                            <div class="pull-left">
+                                                <img src="{{currentUser.imgProfile}}" alt="" class="img-avatar">
+                                            </div>
+                                            <div class="media-body">
+                                                <div class="mf-content">
+                                                    {{chat.mensaje}}
+                                                </div>
+                                                <small class="mf-date"><i class="fa fa-clock-o"></i>
+                                                    {{chat.fecha | date:'short':'UTC'}}</small>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+
+
+                                </div>
+                                </div>
+
+                                <div class="msb-reply">
+                                    <textarea id="mandarMsg" placeholder="What's on your mind..." name="mensaje"
+                                        [(ngModel)]="mensaje" class="form-control" name="message"
+                                        (keydown)="handleSubmit($event)"></textarea>
+                                    <button (click)="onclickMsg()"><i class="fa fa-paper-plane-o"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

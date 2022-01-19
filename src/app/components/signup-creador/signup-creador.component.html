@@ -1,0 +1,150 @@
+<main>
+
+    <section class="section section-shaped section-lg">
+      <div class="shape shape-style-1 shape-primary">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="container cont pt-lg-md">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="card bg-secondary shadow border-0">
+              <div class="card-header bg-white pb-4">
+                  <mat-horizontal-stepper linear [labelPosition]= "'buttom'">
+                      <mat-step label= "Datos del Creador" [editable]= "true" [completed]="true" style="background-color: #569e86;">
+                        <div><br>
+                            <h1>Ingresa tus datos personales</h1> <br>
+                                <div class="card cards-ps">
+                                  <img class="card-img-top" style="float: center;margin-left: 40%;" src="./assets/img/theme/community.png">            
+                                    <div class="card-body">
+                                      <h4 class="card-title">Completa los siguientes datos:</h4>
+                                        <form>
+                                            <div style="max-width: 100%; text-align: center; margin:auto;">
+                                              <div class="input-group input-group-alternative">
+                                                <div class="input-group-prepend">
+                                                  <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                                </div>
+                                                <input #name class="form-control" placeholder="Nombre" type="text" (focus)="focus=true" (blur)="focus=false">
+                                              </div> <br>
+                                              <div class="input-group input-group-alternative">
+                                                    <div class="input-group-prepend">
+                                                      <span class="input-group-text"><i class="bi bi-person-square"></i></span>
+                                                    </div>
+                                                    <input #nickname class="form-control" placeholder="Nickname" type="text" (focus)="focus=true" (blur)="focus=false">
+                                              </div><br>
+                                                <div class="input-group input-group-alternative">
+                                                      <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="bi bi-youtube"></i></span>
+                                                      </div>
+                                                      <input #link class="form-control" placeholder="(Link) video de bienvenida" type="url" (focus)="focus=true" (blur)="focus=false">
+                                                  </div><br>
+                                                  <div class="input-group input-group-alternative">
+                                                    <div class="input-group-prepend">
+                                                      <span class="input-group-text"><i class="bi bi-pencil-square"></i></span>
+                                                    </div>
+                                                    <input #description class="form-control" placeholder="Descripción de tu contenido" type="text" (focus)="focus=true" (blur)="focus=false">
+                                              </div><br>
+
+                                              <ng-multiselect-dropdown
+                                                [placeholder]="'Selecciona hasta dos Categorías'"
+                                                [settings]="dropdownSettings"
+                                                [data]="dropdownList"
+                                                (onSelect)="onItemSelect()"
+                                                [formControl]="toppings"
+                                              ></ng-multiselect-dropdown><br>
+                                                  <div class="input-group input-group-alternative">
+                                                    <div class="input-group-prepend">
+                                                      <span class="input-group-text"><i class="bi bi-image-fill"></i></span>
+                                                    </div>
+                                                    <input accept="image/png, image/jpeg" #profile class="form-control form-control-md" id="formFileLg" type="file" style="display:none; " (change)="detectFiles($event)" />
+                                                    <label for="formFileLg" style="color: #aeb6be; margin-left: -10px;">Elegir Imagen de Perfil</label>
+                                                  </div>
+                                                  <div *ngIf="urls[0]!=''" class="d-flex flex-row flex-wrap justify-content-center">
+                                                    <img [src]="urls[0]" class="img-fluid img-profile img-thumbnail shadow">
+                                                  </div><br>
+                                                  <div class="input-group input-group-alternative">
+                                                    <div class="input-group-prepend">
+                                                      <span class="input-group-text"><i class="bi bi-card-image"></i></span>
+                                                    </div>
+                                                    <input accept="image/png, image/jpeg" #cover class="form-control form-control-md" id="formFileLg1" type="file" style="display:none; " (change)="detectFiles($event)" />
+                                                    <label for="formFileLg1" style="color: #aeb6be; margin-left: -10px;">Elegir Imagen de Portada</label>
+                                                  </div>
+                                                  <div *ngIf="urls[1]!=''" class="d-flex flex-row flex-wrap justify-content-center">
+                                                    <img [src]="urls[1]" class="img-fluid img-board">
+                                                  </div><br>
+                                                  <ckeditor #textarea [config]="{placeholder: 'Cuéntanos un poco más sobre tí...',toolbar: [ 'heading', '|', 'bold', 'italic','bulletedList', 'numberedList','undo', 'redo' ]}" [editor]="editor" class="editortext" (blur)="gettext()" ></ckeditor>
+                                                </div>
+                                        </form>
+                                    </div>
+                                  </div> 
+                               </div>
+                           
+                     
+                        <div class="button button-footer-card"><br><br>
+                          <button mat-button matStepperNext style="margin-left: 10px">Siguiente</button>
+                    
+                        </div>
+                     </mat-step>
+                      <mat-step label= " Medio de pago" [editable]= "true" [completed]="true">
+                          <div>
+                            <br>
+                            <h1>¿Cómo recibirás tus bonificaciones?</h1>
+                          </div>
+
+                          <div class="row justify-content-center">
+                          
+                            <div class="card cards-ps">
+                             <img class="card-img-top" style="float: center;margin-left: 40%;" src="./assets/img/theme/bank.png">            
+                              <div class="card-body">
+                                <h4 class="card-title">Completa los siguientes datos:</h4>
+                                <form div="form">
+                                        <div class="input-group input-group-alternative">
+                                          <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                        </div>
+                                          <input #namePayment class="form-control" placeholder="Nombre del titular" type="text" (focus)="focus=true" (blur)="focus=false">
+                                      </div> <br>
+                                      <div class="input-group input-group-alternative">
+                                          <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="bi bi-credit-card"></i></span>
+                                          </div>
+                                          <input #account class="form-control" placeholder="Numero de cuenta" type="text" (focus)="focus=true" (blur)="focus=false">
+                                      </div><br>
+                                  
+                                      <div class="content-select">
+                                        <select required (change)="selectOption($event)">
+                                          <option *ngIf="selected" selected>Seleccione su banco</option>
+                                          <option>BROU</option>
+                                          <option>SANTANDER</option>
+                                          <option>SCOTIABANK</option>
+                                          <option>ITAU</option>
+                                          <option>BBVA</option>
+                                        </select>
+                                        <i></i>
+                                      </div>
+                                  </form>
+                              </div>
+                          </div> 
+                        </div>
+                     <br>
+                      <div class="button button-footer-card">
+                        <button mat-button matStepperPrevious >Atrás</button>
+                        <button (click)="creatorMaker(name.value,nickname.value,link.value, description.value, namePayment.value, account.value)" mat-button matStepperNext style="margin-left: 10px">Terminar</button>
+                      </div>
+                      </mat-step>
+                    </mat-horizontal-stepper>
+              </div>
+            </div>
+            <mat-progress-bar *ngIf="showBar"  mode="indeterminate"></mat-progress-bar>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  

@@ -1,0 +1,53 @@
+.section-shaped .shape {
+  background: linear-gradient(45deg, #27798f 1%, #ffe3b3 90%);
+}
+
+
+.cont{
+  display: flex;
+  text-align: center;
+  margin-top: 50px;
+  justify-content: center;
+}
+
+.cat{
+  align-items: center;
+  text-align: center;
+  border-color: #fff;
+  margin: auto; 
+}
+
+
+.catimg{
+  max-width: 80%;
+  height: auto;
+  justify-content: center !important;
+}
+
+.catimg:hover{
+  animation-name: profile-animation;
+  animation-duration: 0.1s;
+  filter: drop-shadow(0 0 5px #27798f);
+  cursor: pointer;
+}
+
+:host ::ng-deep .ck-editor__editable_inline {
+  min-height: 150px;
+  max-height: 150px;
+}
+
+@media screen and (max-width: 570px){
+
+  .cont{
+    display: flex;
+   flex-wrap: wrap;
+   justify-content: space-between;
+  }
+
+
+  .catimg{
+    max-width: 40%;
+    height: auto;
+    justify-content: center !important;
+  }
+}

@@ -1,0 +1,165 @@
+<main>
+  <mat-progress-bar *ngIf="showBar" style="position: fixed;z-index: 100;" mode="indeterminate"></mat-progress-bar>
+  <section class="section section-shaped">
+    <div class="shape shape-style-1 shape-primary">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="cont d-flex flex-column">
+        <div *ngIf="addPlan==false && editPlan==false" class="card-deck justify-content-center">
+          <div *ngFor='let plan of plans' class="mb-4">
+            <div class="card cards h-100">
+              <br><div class="card-title">{{plan.name}}</div>
+              <img *ngIf="plan.image!=''" class="card-img-top" style="margin: 0 auto;" src="{{plan.image}}">  
+              <font color="#27798f" size="5" face="Open Sans"><br *ngIf="plan.image!=''"><i><b>${{plan.price | number: '1.0-2'}}</b></i></font><font color="#27798f" size="3" face="Open Sans"> /mes</font>            
+              <div class="card-body">
+                <button mat-stroked-button (click)="displayPlanEditor(plan)" style="background-color: #eecb8b;">Editar</button><br><br>
+                <div class="card-text"  [innerHTML]="plan.description"></div><br>
+                <font color="#27798f" size="3" face="Open Sans"><br><i><b>Beneficios:</b></i></font>
+                <ul style="padding: 0;" class="ml-4 mt-2">
+                  <li *ngFor="let element of plan.benefits" style="font-family: Open Sans; font-size: small;color: #2c4e57; text-align: start;" role="listitem">{{element}}</li>
+                </ul>
+              </div>
+            </div> 
+          </div>
+        </div> 
+        <div *ngIf="addPlan==false && editPlan==false" (click)="displayAddForm()" class="text-crearplan">
+          <h2><a><i class="bi bi-plus-circle"></i>
+            <a> Crear Nuevo Plan de Suscripción</a><br>
+          </a></h2>
+        </div>
+        <div *ngIf="addPlan==true" class="contForm">
+          <div class="formHeader">
+            <img src="./assets/img/theme/createplan.png" class="img-fluid">
+          </div>
+          <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="bi bi-fonts"></i></span>
+            </div>
+              <input #title class="form-control" placeholder="Nombre del Plan" type="text">
+          </div>
+          <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
+            </div>
+              <input #price class="form-control" placeholder="Precio por mes" type="text">
+          </div>
+          <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            </div>
+              <input #mensaje class="form-control" placeholder="Mensaje de bienvenida" type="text">
+          </div>
+          <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="bi bi-youtube"></i></span>
+            </div>
+            <input #link class="form-control" placeholder="(Link) video de bienvenida" type="url">
+          </div>
+          <div style="margin-bottom: 16px; background-color: #fff" class="input-group img-input input-group-alternative">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="bi bi-image-fill"></i></span>
+            </div> 
+            <input accept="image/png, image/jpeg" #profile class="form-control form-control-md" id="formFileLg" type="file" (change)="detectFiles($event)" style="display:none; width: 100%;" />
+            <label for="formFileLg" style="cursor: pointer; color: #aeb6be; margin: 0; width: 88%; text-align: left;">Subir Imagen</label>
+          </div>
+          <div *ngIf="urls[0]!=''" style="margin-bottom: 24px;" class="d-flex flex-row flex-wrap justify-content-center">
+            <img [src]="urls[0]" class="img-fluid img-imagen shadow">
+          </div>
+          <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="bi bi-plus-circle"></i></span>
+            </div>
+              <input #benefitInput class="form-control" (blur)="addBenefit()" placeholder="Agregar Beneficio" type="text">
+          </div>
+          <mat-form-field style="margin-top: -8px;" appearance="outline">
+            <mat-label><i style="margin-right: 8px;" class="bi bi-sort-down-alt"></i>Beneficios</mat-label>
+            <mat-select [formControl]="benefitsControl" multiple>
+              <mat-select-trigger>
+                {{benefitsControl.value ? benefitsControl.value[0] : ''}}
+                <span *ngIf="benefitsControl.value?.length > 1" class="example-additional-selection">
+                  (+{{benefitsControl.value.length - 1}} {{benefitsControl.value?.length === 2 ? 'Otro' : 'Otros'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let benefit of benefits" [value]="benefit">{{benefit}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <ckeditor #textarea [config]="{placeholder: 'Añade una descripción...',toolbar: [ 'heading', '|', 'bold', 'italic','bulletedList', 'numberedList','undo', 'redo' ]}" [editor]="editor" (blur)="getArticleContent($event)"></ckeditor>
+          <div class="d-flex flex-row ml-auto">
+            <button mat-stroked-button class="finishButton px-3 py-1" (click)="displayCard()" style="background-color: #eecb8b;">Volver</button>
+            <button mat-stroked-button class="finishButton px-3 py-1" (click)="crearPlan(title.value,price.value,link.value,mensaje.value)" style="background-color: #569e86;">Guardar</button>
+          </div>
+        </div>
+        <div *ngIf="editPlan==true" class="contForm">
+          <div class="formHeader">
+            <img src="./assets/img/theme/editplan.png" class="img-fluid">
+          </div>
+          <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="bi bi-fonts"></i></span>
+            </div>
+              <input #titleEdit value='' class="form-control" placeholder="Nombre del Plan" type="text">
+          </div>
+          <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
+            </div>
+              <input #priceEdit class="form-control" placeholder="Precio por mes" type="text">
+          </div>
+          <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            </div>
+              <input #mensajeEdit class="form-control" placeholder="Mensaje de bienvenida" type="text">
+          </div>
+          <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="bi bi-youtube"></i></span>
+            </div>
+            <input #linkEdit class="form-control" placeholder="(Link) video de bienvenida" type="url">
+          </div>
+          <div style="margin-bottom: 16px; background-color: #fff" class="input-group img-input input-group-alternative">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="bi bi-image-fill"></i></span>
+            </div> 
+            <input accept="image/png, image/jpeg" #profileEdit class="form-control form-control-md" id="formFileLg1" type="file" (change)="detectFiles($event)" style="display:none; width: 100%;" />
+            <label for="formFileLg1" style="cursor: pointer; color: #aeb6be; margin: 0; width: 88%; text-align: left;">Subir Imagen</label>
+          </div>
+          <div *ngIf="urls[1]!=''" style="margin-bottom: 24px;" class="d-flex flex-row flex-wrap justify-content-center">
+            <img [src]="urls[1]" class="img-fluid img-imagen shadow">
+          </div>
+          <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="bi bi-plus-circle"></i></span>
+            </div>
+              <input #benefitInputEdit class="form-control" (blur)="addBenefitEdit()" placeholder="Agregar Beneficio" type="text">
+          </div>
+          <mat-form-field style="margin-top: -8px;" appearance="outline">
+            <mat-label><i style="margin-right: 8px;" class="bi bi-sort-down-alt"></i>Beneficios</mat-label>
+            <mat-select [formControl]="benefitsControlEditor" multiple>
+              <mat-select-trigger>
+                {{benefitsControlEditor.value ? benefitsControlEditor.value[0] : ''}}
+                <span *ngIf="benefitsControlEditor.value?.length > 1" class="example-additional-selection">
+                  (+{{benefitsControlEditor.value.length - 1}} {{benefitsControlEditor.value?.length === 2 ? 'Otro' : 'Otros'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let benefit of benefits" [value]="benefit">{{benefit}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <ckeditor #textareaEdit [config]="{placeholder: 'Añade una descripción...',toolbar: [ 'heading', '|', 'bold', 'italic','bulletedList', 'numberedList','undo', 'redo' ]}" [editor]="editor" (blur)="getArticleContent($event)"></ckeditor>
+          <div class="d-flex flex-row ml-auto">
+            <button mat-stroked-button class="finishButton px-3 py-1" (click)="displayCard()" style="background-color: #eecb8b;">Volver</button>
+            <button mat-stroked-button class="finishButton px-3 py-1" (click)="EditarPlan()" style="background-color: #569e86;">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

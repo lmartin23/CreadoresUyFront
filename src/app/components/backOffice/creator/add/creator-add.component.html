@@ -1,0 +1,129 @@
+<main>
+    <section>
+        <div class="cont">
+            <div class="container">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-6 mb-2">
+                                    <mat-label class="row">Usuario</mat-label>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Usuario</mat-label>
+                                        <mat-select [formControl]="usuarioControl" #userValue>
+                                            <mat-option>--</mat-option>
+                                            <mat-option *ngFor="let u of usuarios" [value]="u.id">
+                                                {{u.id+": "+u.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <label for="name" class="col-sm-12 col-form-label">Nombre</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" #name>
+                                    </div>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <label for="email" class="col-sm-12 col-form-label">Nickname</label>
+                                    <div class="col-sm-12">
+                                        <input type="email" class="form-control" #nickname>
+                                    </div>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <label for="password" class="col-sm-12 col-form-label">Descripcion</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" #descripcion>
+                                    </div>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <label for="descrition" class="col-sm-12 col-form-label">Biografía</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" #biografia>
+                                    </div>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <mat-label class="row">Categoría 1</mat-label>
+
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Categoría 1</mat-label>
+                                        <mat-select [formControl]="categoria1Control" required #category1Value>
+                                            <mat-option>--</mat-option>
+                                            <mat-option *ngFor="let c of categorias" [value]="c.name">
+                                                {{c.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <mat-label class="row">Categoría 2</mat-label>
+
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Categoría 2</mat-label>
+                                        <mat-select [formControl]="categoria2Control" #category2Value>
+                                            <mat-option>--</mat-option>
+                                            <mat-option *ngFor="let c of categorias" [value]="c.name">
+                                                {{c.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+
+                                <div class="col-6 mb-2 d-flex flex-row flex-wrap justify-content-center">
+                                    <div class="col-sm-12 mt-3">
+                                        <mat-label class="row">Imagen creador</mat-label>
+                                        <span style="color:red;" *ngIf="message">{{message}}</span>
+                                        <input #file accept='image/*' type="file" id="img-profile"
+                                            (change)="handleUpload($event,file.files)">
+                                        <img [src]="imgURL" height="200" *ngIf="imgURL">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="image-box">
+                                            <label type="file"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 mb-2 d-flex flex-row flex-wrap justify-content-center">
+                                    <div class="col-sm-12 mt-3">
+                                        <mat-label class="row">Banner</mat-label>
+                                        <span style="color:red;" *ngIf="message2">{{message2}}</span>
+                                        <input #file2 accept='image/*' type="file" id="img-profile2s"
+                                            (change)="handleUpload2($event,file2.files)">
+                                        <img [src]="imgURL2" height="200" *ngIf="imgURL2">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="image-box">
+                                            <label type="file"></label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 mb-2">
+                                    <label for="descrition" class="col-sm-12 col-form-label">Link de video de
+                                        bienvenida</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" #welcVideo name="nombre"
+                                            [(ngModel)]="inputVideo" (ngModelChange)="getVideoIframe($event)"
+                                            [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                    <p>
+                                        <iframe width="560" height="315" [src]="videosrc" frameborder="0"
+                                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen></iframe>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row flex-wrap justify-content-center mt-4">
+                                <button class="mr-4" mat-raised-button color="primary"
+                                    [routerLink]="['../']">Volver</button>
+                                <button mat-raised-button color="primary"
+                                    (click)="enviarDatos(name.value,nickname.value,biografia.value,descripcion.value,userValue.value,category1Value.value,category2Value.value)">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

@@ -1,0 +1,28 @@
+<main>
+    <section>
+        <div class="cont">
+            <div class="container">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-12 mb-2">
+                                    <label for="name" class="col-sm-12 col-form-label">Nombre</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" #name value="{{category.Name}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row flex-wrap justify-content-center mt-4">
+                                <button class="mr-4" mat-raised-button color="primary"
+                                    [routerLink]="['../../']">Volver</button>
+                                <button mat-raised-button color="primary"
+                                    (click)="enviarDatos(name.value)">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

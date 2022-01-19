@@ -1,0 +1,21 @@
+.section-shaped .shape {
+    background: linear-gradient(45deg, #26798E 15%, #63CAA7 90%);
+}
+
+.border-vid{
+    border: blanchedalmond solid 1px;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.video-margin{
+    padding: 10px 10px;
+}
+
+@media screen and (max-width: 998px){
+    .embed-responsive{
+        margin-top: 100px;
+        margin-right: auto;
+        margin-left: auto;
+        width: 85%;
+    }
+}

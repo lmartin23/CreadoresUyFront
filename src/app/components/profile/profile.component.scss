@@ -1,0 +1,294 @@
+
+.cont{
+    margin-bottom: 240px;
+    margin-top: -130px;
+    display: flex;
+    justify-content: center;
+}
+
+.show {
+    overflow: visible;
+    height: auto;
+  }
+
+.card-header-post{
+    margin: 0 5px;
+    display: grid;
+    margin-bottom: 15px;
+}
+
+.mat-stroked-button{
+    background-color: #48977c;
+    color: #fff;
+    border-radius: 50px;
+    margin: 0 2px;
+    z-index: 50;
+}
+
+.disabledButton{
+    background-color: #48977b56;
+    border: none;
+    color: #fff;
+}
+
+.card-img-top{
+    max-width: 100%;
+    max-height: 400px;
+}
+
+.card{
+    display: flex;
+    border: none;
+}
+
+.card-text{
+    font-style: oblique;
+    font-size: small;
+}
+
+.card-text-style{
+    margin-top: 15px;
+}
+.card-deck{
+    margin: 0 5px;
+    margin-bottom: 35px;
+    display: grid;
+    max-width: 800px;
+    border: 1px solid #EEE;
+    border-radius: 10px;
+}
+
+.card-header-post{
+    margin: 0 5px;
+    display: grid;
+    margin-bottom: 15px;
+}
+
+.card-img-top{
+    width: 100%;
+    height: 300px;
+    transition: all 0.4s ease;
+    object-fit: cover;
+}
+
+.card{
+    margin: 3px 3px;
+    border: none;
+}
+
+.biography{
+    display: flex;
+    justify-content: center;
+}
+
+.perfile-title{
+    text-align: center;
+    font-size: x-large;
+}
+
+.but-cont{
+    display: flex;
+}
+
+.text-profile-responsive{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.img-profile{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 150px;
+    height: 150px;
+    border: solid 0.5px #999;
+    border-radius: 100px !important;
+    object-fit: cover;
+}
+
+.img-profile:hover{
+    animation-name: profile-animation;
+    animation-duration: 0.1s;
+    filter: drop-shadow(0 0 5px #27798f);
+  
+}
+
+@keyframes profile-animation {
+    from {filter: drop-shadow(0 0 0 #fff);}
+    to {filter: drop-shadow(0 0 4px #27798f);}
+}
+
+blockquote {
+    background: #f4fdfc;
+    border-left:6px solid rgb(105, 129, 124);
+    font-family: Georgia, serif;
+    padding:.5em 10px;
+    quotes:"\201C""\201D""\2018""\2019";
+    }
+    blockquote:before {
+    color:rgb(68, 105, 99);
+    content:open-quote;
+    font-family: cambria, Georgia;
+    font-size:4em;
+    line-height:.1em;
+    vertical-align:-.4em;
+    }
+    blockquote p {
+    display:inline;
+    }
+    blockquote cite {
+    color: #4b7070;
+    font-size: 14px;
+    display: block;
+    margin-top: 10px;
+} 
+
+.youtube-iframe{
+    border-radius: 5px;
+}
+
+.card-m{
+    padding: 10px;
+}
+
+.mat-raised-button{
+    display: block;
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+.mat-m{
+    margin-top: 45px;
+    margin-bottom: 25px;
+}
+
+.card-border{
+    border: 1px solid #EEE;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.filt{
+    filter:blur(8px);
+    padding: 16px;
+}
+
+.show {
+    height: auto !important;
+  }
+
+.description {
+    font-size: 16px;
+    line-height: 16px;
+    height: auto;
+}
+
+.card-footer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.text-muted-publicadopor{
+    margin-left: auto;
+    font-style: oblique;
+    font-size: smaller;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.more{
+    margin-bottom: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    color: #000;
+}
+
+::ng-deep .mat-form-field-wrapper{
+    padding: 0;
+    margin-top: 14px;
+}
+
+.more:hover{
+    color: rgb(8, 57, 204) !important;
+}
+
+.test{
+    margin: 0;
+    width: 50px !important;
+    height: 50px;
+    position: absolute;
+    top: 32%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 0 3px rgb(153, 153, 153)) opacity(90%);
+    z-index: 100;
+}
+
+.text-des{
+    margin: 0;
+    position: absolute;
+    top: 41%;
+    left: 50%;
+    color: #fff;
+    font-weight: bold;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 0 5px #000);
+    z-index: 100;
+}
+
+.rounded-circle1{ 
+    display: block;
+    width: 30px !important;
+    height: 30px !important;
+    border: solid 0.3px #aaa;
+    border-radius: 150px;
+    object-fit: cover;
+    
+}
+
+@media screen and (max-width: 568px) {
+    .container{
+        margin: 0px !important;
+        padding: 5px !important;
+    }
+
+    .text-des{
+        width: 100%;
+        text-align: center;
+    }
+
+    .col-12{
+        padding: 0px !important;
+    }
+
+    .card-profile{
+        box-shadow: none;
+        filter: drop-shadow(0 0 0.75rem #aaa);
+    }
+
+    .card-border{
+        box-shadow: none;
+        border: 0.5px solid #ccc;
+        padding: 0px;
+    }
+
+    .card-deck{
+        border: none;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .card-m{
+        padding: 5px;
+    }
+
+    .shadow{
+        box-shadow: none !important;
+        filter: none;
+    }
+}

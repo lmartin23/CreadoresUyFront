@@ -1,0 +1,133 @@
+<nav id="navbar-main"
+  class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top headroom--pinned">
+  <div class="container">
+    <a class="navbar-brand mr-3" [routerLink]="['/home']">
+      <img src="./assets/img/brand/argon-white.png">
+    </a>
+    <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed"
+      [attr.aria-expanded]="!isCollapsed" aria-controls="navbar_global">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="navbar_global" [ngbCollapse]="isCollapsed">
+      <div class="navbar-collapse-header">
+        <div class="row">
+          <div class="col-6 collapse-brand">
+            <a [routerLink]="['/home']">
+              <img src="./assets/img/brand/blue.png">
+            </a>
+          </div>
+          <div class="col-6 collapse-close">
+            <button type="button" class="navbar-toggler" (click)="isCollapsed = !isCollapsed"
+              [attr.aria-expanded]="!isCollapsed" aria-controls="navbar_global">
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <ul *ngIf="getPath().includes('backOffice')" class="navbar-nav navbar-nav-hover align-items-lg-center">
+        <li class="nav-item dropdown">
+          <a class="nav-link no-caret" data-toggle="dropdown" role="button">
+            <i class="ni ni-collection d-lg-none"></i>
+            <span class="nav-link-inner--text">Funcionalidades</span>
+          </a>
+          <div class="dropdown-menu">
+            <a [routerLink]="['/backOffice/usuario']" class="dropdown-item">Usuarios</a>
+            <a [routerLink]="['/backOffice/admin']" class="dropdown-item">Administradores</a>
+            <a [routerLink]="['/backOffice/creador']" class="dropdown-item">Creadores</a>
+            <a [routerLink]="['/backOffice/categoria']" class="dropdown-item">Categorias</a>
+            <a [routerLink]="['/backOffice/plan']" class="dropdown-item">Planes por defecto</a>
+            <a [routerLink]="['/backOffice/pagos']" class="dropdown-item">Pagos</a>
+            <a [routerLink]="['/backOffice/beneficio']" class="dropdown-item">Beneficios por defecto</a>
+            <a [routerLink]="['/backOffice/estadisticas']" class="dropdown-item">Estadisticas</a>
+          </div>
+        </li>
+      </ul>
+      <ul class="navbar-nav align-items-lg-center ml-lg-auto">
+        <li class="nav-item d-none d-lg-block ml-lg-1">
+          <div [ngClass]="{'focused':focus===true}">
+            <form>
+              <div class="input-group">
+                <button (click)="navToSearch()" class="search-link">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <mat-icon aria-hidden="false" aria-label="Example home icon">search</mat-icon>
+                    </span>
+                  </div>
+                </button>
+                <input #search (input)="setValue($event)" class="form-control" placeholder="Buscar..." type="search"
+                  (focus)="focus=true" (blur)="focus=false">
+              </div>
+            </form>
+          </div>
+        </li>
+        <li *ngIf="getToken()==null" class="nav-item d-none d-lg-block ml-lg-1">
+          <a [routerLink]="['/login']">
+            <button mat-raised-button>
+              <i class="bi bi-person-circle align-middle"></i>
+              <span class="nav-link-inner--text align-middle"> Iniciar Sesión</span>
+            </button>
+          </a>
+        </li>
+        <li *ngIf="getToken()!=null && getUserType()==='admin'" class="nav-item d-none d-lg-block ml-lg-1 profile-nav">
+          <div class="profile-header-container">
+            <div [matMenuTriggerFor]="beforeMenu">
+              <div class="profile-header-img">
+                <img *ngIf="getimgProfile()===''" class="img-fluid img-circle img-profile"
+                  src="./assets/img/theme/team-4-800x800.png" />
+                <img *ngIf="getimgProfile()!==''" class="img-fluid img-circle img-profile" src="{{getimgProfile()}}" />
+                <small style="margin-left: 12px;">{{getName()}}</small>
+              </div>
+            </div>
+            <mat-menu #beforeMenu="matMenu" xPosition="before">
+              <a mat-menu-item [routerLink]="['/creador-Register']">Alta Creador</a>
+              <a mat-menu-item [routerLink]="['/feed']">Publicaciones</a>
+              <a mat-menu-item [routerLink]="['/home']">Inicio</a>
+              <a mat-menu-item [routerLink]="['/logout']">Cerrar sesión</a>
+            </mat-menu>
+          </div>
+        </li>
+        <li *ngIf="getToken()!=null && getUserType()==='creator'" class="nav-item d-none d-lg-block ml-lg-1">
+          <div class="profile-header-container">
+            <div [matMenuTriggerFor]="beforeMenu">
+              <div class="profile-header-img">
+                <img *ngIf="getimgProfile()===''" class="img-fluid img-circle img-profile"
+                  src="./assets/img/theme/team-4-800x800.png" />
+                <img *ngIf="getimgProfile()!==''" class="img-fluid img-circle img-profile" src="{{getimgProfile()}}" />
+                <small style="margin-left: 12px;">{{getName()}}</small>
+              </div>
+            </div>
+            <mat-menu #beforeMenu="matMenu" xPosition="before">
+              <a mat-menu-item [routerLink]="['/creator-Profile',getNickname()]">Mi Perfil</a>
+              <a mat-menu-item [routerLink]="['/feed']">Publicaciones</a>
+              <a mat-menu-item [routerLink]="['/createPost']">Crear Publicación</a>
+              <a mat-menu-item [routerLink]="['/estadistica']">Estadistica</a>
+              <a mat-menu-item [routerLink]="['/planconfig']">Configuración Planes</a>
+              <a mat-menu-item [routerLink]="['/chat']">Chats</a>
+              <a mat-menu-item [routerLink]="['/logout']">Cerrar sesión</a>
+            </mat-menu>
+          </div>
+        </li>
+        <li *ngIf="getToken()!=null && getUserType()==='user'" class="nav-item d-none d-lg-block ml-lg-1">
+          <div class="profile-header-container">
+            <div [matMenuTriggerFor]="beforeMenu">
+              <div class="profile-header-img">
+                <img *ngIf="getimgProfile()===''" class="img-fluid img-circle img-profile"
+                  src="./assets/img/theme/team-4-800x800.png" />
+                <img *ngIf="getimgProfile()!==''" class="img-fluid img-circle img-profile" src="{{getimgProfile()}}" />
+                <small style="margin-left: 12px;">{{getName()}}</small>
+              </div>
+            </div>
+            <mat-menu #beforeMenu="matMenu" xPosition="before">
+              <a mat-menu-item [routerLink]="['/user-Profile/', getName()]">Mi Perfil</a>
+              <a mat-menu-item [routerLink]="['/creador-Register']">Alta Creador</a>
+              <a mat-menu-item [routerLink]="['/feed']">Publicaciones</a>
+              <a mat-menu-item [routerLink]="['/chat']">Chats</a>
+              <a mat-menu-item [routerLink]="['/logout']">Cerrar sesión</a>
+            </mat-menu>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

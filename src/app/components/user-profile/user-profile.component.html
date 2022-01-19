@@ -1,0 +1,48 @@
+<main>
+  <section class="section section-shaped">
+    <div class="shape shape-style-1 shape-primary">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="container cont pt-lg-md">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <div class="card bg-secondary shadow border-0">
+              <div class="card-header bg-white pb-4">
+              <div class="card-profile-stats d-flex justify-content-center">
+                  <div class="card-profile-image">
+                      <img src="{{getimgProfile()}}" class="img-fluid img-profile shadow">
+                  </div>
+              </div>  
+              <div class="card-title"><h1>{{getName()}}</h1></div> 
+              <mat-tab-group animationDuration="0ms">
+                <mat-tab label="Mis Suscripciones"> 
+                  <div id="subscriptions" *ngFor="let sub of subs">
+                    <a  style="padding: 0 8px;" class="text-muted" mat-menu-item>
+                      <img src="{{sub.profileImage}}" class="rounded-circle2"
+                      style="margin-right: 5px; float: right;">
+                      {{sub.name}}
+                    </a>
+                  </div></mat-tab>
+                <mat-tab label="Mis Seguidos">
+                  <div id="subscriptions" *ngFor="let foll of follw">
+                    <a  style="padding: 0 8px;" class="text-muted" mat-menu-item>
+                      <img src="{{foll.profileImage}}" class="rounded-circle2"
+                      style="margin-right: 5px; float: right;">
+                      {{foll.name}}
+                    </a>
+                  </div></mat-tab>
+              </mat-tab-group>
+            </div> 
+         </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>

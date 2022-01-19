@@ -1,0 +1,132 @@
+<main class="profile-page">
+  <section class="section-profile-cover">
+    <!-- Circles background -->
+    <img class="card-img-top" src="{{coverimg}}">
+    <!-- SVG separator -->
+    <div class="separator separator-bottom separator-skew">
+      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
+      </svg>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container cont">
+      <div class="col-lg-10 col-12">
+        <div class="card card-profile shadow mt--300">
+          <div class="px-lg-4 px-2">
+            <div class="row justify-content-center">
+              <div class="col-lg-4">
+                <div class="card-profile-stats d-flex justify-content-center">
+                  <div>
+                    <span class="heading">{{cantSubs}}</span>
+                    <span class="description">Suscriptores</span>
+                  </div>
+                  <div>
+                    <span class="heading">{{cantFollowers}}</span>
+                    <span class="description">Seguidores</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 my-5 my-lg-0 mx-sm-2 mx-0">
+                <div class="card-profile-image">
+                  <img src="{{img}}" class="img-fluid img-profile shadow">
+                </div>
+              </div>
+              <div class="text-lg-right align-self-lg-center">
+                <div class="card-profile-actions ml-3 py-4 mt-lg-0 mt-5">
+                  <button *ngIf="getNickname()==nickname" [ngClass]="{disabledButton: getNickname()==nickname}" disabled='true' mat-stroked-button>Seguir</button>
+                  <button *ngIf="getUserId()=='0'" routerLink="/login" mat-stroked-button>Seguir</button>
+                  <button *ngIf="getUserId()!='0' && !follow && getNickname()!=nickname" (click)='followCreator()' mat-stroked-button style='padding:0 24px'>Seguir</button>
+                  <button *ngIf="getUserId()!='0' &&  follow && getNickname()!=nickname" (click)='unfollowCreator()' mat-stroked-button>UnFollow</button>
+                  <button *ngIf="chatbolean" mat-stroked-button [routerLink]="['/chat',nickname]">Enviar Mensaje</button>
+                  <button *ngIf="!chatbolean" mat-stroked-button disabled="true" [ngClass]="{disabledButton: !chatbolean}" >Enviar Mensaje</button>
+                </div>
+              </div>
+            </div>
+            <div class="text-center mt-3">
+            <div class="col-12" ><h2 class="perfile-title">{{creatorName}}</h2></div>
+              <div class="d-flex flex-row justify-content-center">
+                <div class="col-11">
+                  <blockquote> <p>{{descripcion}}</p>
+                  </blockquote>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="card-deck shadow px-lg-2 py-lg-2 px-0 py-0">
+              <div class="card biography">
+                <iframe *ngIf="video!=''" class="youtube-iframe" width="100%" height="315" [src]="video | safe"
+                frameborder="0" allowfullscreen  title="YouTube video player"></iframe><br>
+                <div class="card-text card-text-style" [innerHTML]='biografia'></div>
+              </div>
+            </div>
+            <div *ngIf="welcomeMensaje!='' && welcomeVideo!=''" class="card-deck shadow px-lg-2 py-lg-2 px-0 py-0">
+              <div class="card biography">
+                <h5 class="card-text" style="margin-top: 4px; margin-bottom: 24px;">{{welcomeMensaje}}</h5>
+                <iframe class="youtube-iframe" width="100%" height="315" [src]="getVideoIframeView(welcomeVideo) | safe"
+                frameborder="0" allowfullscreen  title="YouTube video player"></iframe><br>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="search-results" infinite-scroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="onScroll()"
+        >
+          <div class="card card-border shadow mt-5">
+            <h2 class="card-title mt-2" style="text-align: center; font-size:x-large;">Publicaciones de {{nickname}} </h2>
+            <div *ngFor="let element of contentViwer; let i = index" [attr.data-index]="i">
+              <div class="card-deck shadow">
+                <div class="card card-m">
+                  <a class="padlock" *ngIf="!element['authorized']" (click)="navToSuscribe()" style="cursor: pointer;">
+                    <img class="card-img-top test" style="width: 39%;" src="./assets/img/theme/candado.png">
+                    <p class="text-des">Exlusivo para suscriptores</p>
+                    <img [ngClass]="{filt: !element['authorized']}" 
+                    *ngIf="element['content']['dato']!=''" class="card-img-top" 
+                    src="{{element['content']['dato']}}">
+                  </a>
+                  <img  [ngClass]="{filt: !element['authorized']}" 
+                  *ngIf="element['authorized'] && element['content']['dato']!='' && element['content']['type']==2" class="card-img-top" 
+                  src="{{element['content']['dato']}}">
+                  <iframe class="youtube-iframe" *ngIf="element['content']['type']==3 && element['authorized'] && element['content']['dato']!=''" width="100%" height="315" [src]="getVideoIframeView(element['content']['dato']) | safe"
+                  frameborder="0" allowfullscreen  title="YouTube video player"></iframe>
+                  <a *ngIf="element['content']['type']==5 && element['authorized'] && element['content']['dato']!=''" href="{{element['content']['dato']}}"
+                  style="display: flex; flex-direction: row; align-items: center; margin: auto; margin-top: 12px; font-size: 24px;">{{element['content']['dato']}}</a>
+                  <hr style="margin: 0; margin-top: 16px;" *ngIf="element['content']['type']==5 && element['authorized'] && element['content']['dato']!=''">
+                  <audio controls style="margin: 10px 10px;" *ngIf="element['content']['type']==4 && element['authorized'] && element['content']['dato']!=''"><source src="{{element['content']['dato']}}" type="audio/ogg"></audio>
+                  <hr style="margin: 0; margin-top: 16px;" *ngIf="element['content']['type']==4 && element['authorized'] && element['content']['dato']!=''">
+                  <div class="card-body">
+                      <h2 class="card-title">{{element['content']["title"]}}</h2>
+                      <div *ngIf="element['authorized']" [ngClass]="{show: element['visible']}" class="description">
+                        <p *ngIf="!element['visible']" class="card-text" [innerHTML]="(element['content']['description'].length>340)? (element['content']['description'] | slice:0:340)+'...':(element['content']['description'])">}</p>
+                        <p *ngIf="element['visible']" class="card-text" [innerHTML]="element['content']['description']"></p>
+                      </div>
+                      <a *ngIf="element['authorized'] && element['content']['description'].length>340" (click)="scrollToStart($event)" class="text-muted-publicadopor more" (click)="element['visible'] = !element['visible']" style="float: right;">{{ element['visible'] ? 'Mostrar menos': 'Mostrar más' }}</a>
+                      <mat-form-field [style.width.%]="100" class="tags-list" appearance="standard ">
+                        <mat-chip-list #chipList aria-label="Tags selection">
+                          <mat-chip
+                            *ngFor="let tag of element['content']['tags']">
+                            {{tag['name']}}
+                          </mat-chip>
+                        </mat-chip-list>
+                      </mat-form-field>
+                  </div>
+                  <div class="card-footer" style="padding: 10px;">
+                    <small class="text-muted">Fecha de publicacion: {{element['content']['publishDate'] | date:'short':'UTC'}}</small>
+                    <a class="text-muted-publicadopor"><span>{{element['content']['nickName']}}</span>
+                      <img *ngIf="img==''" src="./assets/img/theme/team-4-800x800.png" class="rounded-circle1"
+                      style="margin-left: 5px; float: right;">
+                      <img *ngIf="img!=''" src="{{img}}" class="rounded-circle1"
+                      style="margin-left: 5px; float: right;">
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

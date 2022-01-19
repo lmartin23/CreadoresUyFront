@@ -1,0 +1,106 @@
+<main>
+  <section class="section section-shaped section-lg">
+    <div class="shape shape-style-1 shape-primary">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    
+    <div class="todo justify-content-center">
+      <div class= "pt-lg-md">
+        <div class="card card-publicacion card-border">
+          <img class="card-img-top"  src="./assets/img/theme/audio.png"> <br>
+          <h3 class="card-title">Completa los siguientes datos:</h3>
+          <form div="form">
+            <form div="form" style="max-width: 100%; text-align: center; margin:auto;">
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="bi bi-fonts"></i></span>
+                    </div>
+                      <input #titleInput [(ngModel)]="title" name="title" class="form-control" placeholder="  Titulo" type="text" (blur)="updateTitle()">
+                  </div><br>
+                  <div *ngIf="labelPosition=='Si'" class="input-group input-group-alternative" [ngClass]="{inputError: dateAlert}">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="bi bi-calendar-plus"></i></span>
+                    </div>
+                      <input required #date class="form-control" [value]="inputDate | date:'yyyy-MM-dd'" placeholder="Fecha" type="date" (blur)="checkDate(date.value)">
+                    </div>
+                    <div class="inputAlert" style="text-align: start;" *ngIf="dateAlert && labelPosition=='Si'">Fecha incorrecta</div>
+                    <br *ngIf="labelPosition=='Si'">
+                  <div *ngIf="labelPosition=='Si'" class="input-group input-group-alternative" [ngClass]="{inputError: !timeAlert}">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="bi bi-alarm"></i></span>
+                    </div>
+                      <input required #time class="form-control" [value]="inputTime" placeholder="Fecha" type="time" (blur)="checkTime(time.value)">
+                  </div><br *ngIf="labelPosition=='Si' && timeAlert">
+                  <div class="inputAlert" style="margin-bottom:14px; text-align: start;" *ngIf="!timeAlert && labelPosition=='Si'">Hora Incorrecta</div>
+                  <div style="margin-bottom: 16px; background-color: #fff" class="input-group img-input input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="bi bi-music-note"></i></span>
+                    </div> 
+                    <input accept=".mp3" #profile class="form-control form-control-md" id="formFileLg" type="file" (change)="detectFiles($event)" style="display:none; width: 100%;" />
+                    <label for="formFileLg" style="cursor: pointer; color: #aeb6be; margin: 0; width: 80%; text-align: left;">Adjuntar Archivo MP3</label>
+                  </div>
+                  <div *ngIf="urls[0]!=''" style="margin-bottom: 12px;" class="d-flex flex-row flex-wrap justify-content-center">
+                    <audio controls><source [src]="urls[0]" type='audio/ogg; codecs=vorbis'></audio>
+                  </div>
+                  <ckeditor #textarea [config]="{placeholder: 'Añade una descripción...',toolbar: [ 'heading', '|', 'bold', 'italic','bulletedList', 'numberedList','undo', 'redo' ]}" [editor]="editor" class="editortext" (blur)="updateDescription()" ></ckeditor><br>
+                  <mat-form-field class="tags-list" appearance="standard ">
+                    <mat-label style="color:#444;">Tags de contenido</mat-label>
+                    <mat-chip-list #chipList aria-label="Tags selection">
+                      <mat-chip
+                        *ngFor="let tag of tags"
+                        [removable]="removable"
+                        (removed)="remove(tag)">
+                        {{tag}}
+                        <button style="border: none; box-shadow: none; background-color:transparent;" matChipRemove *ngIf="removable">
+                          <mat-icon>cancel</mat-icon>
+                        </button>
+                      </mat-chip>
+                      <input
+                        placeholder="nuevo tag..."
+                        #tagInput
+                        [formControl]="tagControl"
+                        [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                  </mat-form-field>
+            </form>
+          </form>
+        </div>      
+      </div>
+        <div class="pt-lg-md">
+          <div class="row justify-content-center">
+            <div class="col-lg-12">
+              <div class="card card-border">
+                <div class="card visualizan">
+                  <h4 class="card-title">¿Quiere programar la publicación del contenido?</h4>
+                  <mat-radio-group class="visualizan-group d-flex flex-row justify-content-around mb-2" color="accent" (change)="resetDate($event)" [(ngModel)]="labelPosition">
+                    <mat-radio-button color="accent" class="wrap-mat-radio-label" value='Si'>Si</mat-radio-button>
+                    <mat-radio-button color="accent" class="wrap-mat-radio-label" value='No'>No</mat-radio-button>
+                  </mat-radio-group>
+                  <h4 class="card-title">¿Quienes verán tu publicación?</h4>
+                  <mat-radio-group class="visualizan-group" color="accent" (change)="changeComboo($event)" [(ngModel)]="tipovisAsig">
+                    <mat-radio-button color="accent" *ngFor="let item of visualizan" [value]="item"><span class="wrap-mat-radio-label">{{item}}</span></mat-radio-button> 
+                    <div class="input-container">
+                        <div *ngIf="tipovisAsig=='Seleccionar Suscripción'"><br>
+                          <h4 style="margin-bottom: 10px;" class="card-title">Selecciona uno o más planes:</h4>
+                          <mat-checkbox class="visualizan" color="accent" style="margin-left: 10px;" *ngFor="let item of tipoSuscripcion" (change)="changePlan(item)" [value]="item"><span class="wrap-mat-radio-label">{{item['name']}}</span></mat-checkbox>
+                        </div>
+                    </div> 
+                  </mat-radio-group><br>
+                  <button mat-button style="text-align: center;" (click)="contentUpdate()">Crear Publicación</button>  
+                </div> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>

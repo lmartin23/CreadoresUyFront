@@ -1,0 +1,93 @@
+<main>
+    <section>
+        <div class="cont">
+            <div class="container">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-6 mb-2">
+                                    <label for="name" class="col-sm-12 col-form-label">Nombre</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" #name required>
+                                    </div>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <label for="email" class="col-sm-12 col-form-label">Descripción</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" #desc required>
+                                    </div>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <label for="password" class="col-sm-12 col-form-label" required>Precio</label>
+                                    <div class="col-sm-12">
+                                        <input type="number" class="form-control" #price>
+                                    </div>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <label for="descrition" class="col-sm-12 col-form-label" required>Mensaje de
+                                        subscripcion</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" #msgSub required>
+                                    </div>
+                                </div>
+                                <div class="col mb-2">
+                                    <label for="descrition" class="col-sm-12 col-form-label">Link de video de
+                                        bienvenida</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" #welcVideo name="nombre"
+                                            [(ngModel)]="inputVideo" (ngModelChange)="getVideoIframe($event)"
+                                            [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                    <p>
+
+                                        <iframe width="560" height="315" [src]="videosrc" frameborder="0"
+                                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen></iframe>
+                                    </p>
+
+                                </div>
+                                <div class="mb-2 d-flex flex-row flex-wrap justify-content-center w-100">
+                                    <label for="descrition"
+                                        class="col-sm-12 col-form-label justify-content-center">Imagen del plan</label>
+                                    <div class="col-sm-12 mt-3 w-100">
+                                        <span style="color:red;" *ngIf="message">{{message}}</span>
+                                        <input #file accept='image/*' type="file" id="img-profile"
+                                            (change)="handleUpload($event,file.files)">
+                                        <img [src]="imgURL" height="200" *ngIf="imgURL"
+                                            class="row justify-content-center ">
+                                    </div>
+                                    <div class="mb-2 justify-content-center w-100">
+                                        <label for="descrition" class="col col-form-label">Beneficios</label>
+                                        <div class="addComponent">
+                                            <input type="text" [(ngModel)]="inputTxt"
+                                                [ngModelOptions]="{standalone: true}">
+                                            <button (click)="addToList()"> Agregar Beneficios </button>
+                                        </div>
+                                        <ul>
+                                            <li *ngFor="let item of listArr; let i = index" (click)="removeItem(i)">
+                                                <label class="row desc">{{item.description}}</label>
+                                                <!--<button (click)="removeItem(i)" > Remove </button> -->
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="buttonMsg != null" class="alert">
+                                <label class="col col-form-label text-dark">{{buttonMsg}}</label>
+
+
+                            </div>
+                            <div class="d-flex flex-row flex-wrap justify-content-center mt-4">
+                                <button class="mr-4" mat-raised-button color="primary"
+                                    [routerLink]="['../']">Volver</button>
+                                <button mat-raised-button color="primary"
+                                    (click)="enviarDatos(name.value,desc.value,price.value,msgSub.value)">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

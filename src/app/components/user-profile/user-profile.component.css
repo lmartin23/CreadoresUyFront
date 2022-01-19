@@ -1,0 +1,63 @@
+.section-shaped .shape {
+    background: linear-gradient(45deg, #27798f 1%, #ffe3b3 90%);
+}
+.cont{
+    margin-top: 10px;
+    text-align: center;
+   
+}
+
+.card{
+    display: flex;
+    height: auto;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.card-title{
+    margin-top: 10px;
+}
+
+
+.img-profile{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 150px;
+    height: 150px;
+    border: solid 0.5px #999;
+    border-radius: 100px !important;
+    object-fit: cover;
+}
+.img-profile:hover{
+    animation-name: profile-animation;
+    animation-duration: 0.1s;
+    filter: drop-shadow(0 0 5px #27798f);
+  
+}
+
+.text-muted{
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+    font-style: oblique;
+    font-size: normal;
+
+}
+
+.mat-stroked-button{
+    background-color: #48977c;
+    color: #fff;
+    border-radius: 50px;
+    margin: 0 2px;
+    z-index: 50;
+}
+
+.rounded-circle2{
+    display: block;
+    width: 22px !important;
+    height: 22px !important;
+    border-radius: 150px;
+    object-fit: cover;
+}

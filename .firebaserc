@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "creadoresuychat": {
+      "hosting": {
+        "argon-design-system-angular": [
+          "creadoresuychat"
+        ]
+      }
+    }
+  }
+}

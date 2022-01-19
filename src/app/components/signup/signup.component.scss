@@ -1,0 +1,80 @@
+.section-shaped .shape {
+    background: linear-gradient(45deg, #27798f 1%, #ffe3b3 90%);
+}
+
+.form-control{
+    max-width:100%;   
+    filter: drop-shadow(0px 0px 0.08rem #e7eff0);
+}
+
+.form{
+    display: flex !important;
+    flex-direction:column; 
+    align-items: center;
+    margin-top: 10px;
+}
+
+.img-input{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.cont{
+    margin-top: 20px;
+}
+
+.cont-success{
+    background-color: black !important;
+    z-index: 1000 !important;
+    display: flex;
+    max-width: 30%;
+}
+
+.password-ad{
+    color: #aaa;
+    margin-bottom: -8px;
+    margin-left: 8px;
+    margin-top:2px;
+}
+
+.inputAlert{
+    color: #dd2a0e;
+    margin-left: 2px;
+    margin-top:2px;
+    margin-bottom: -8px;
+}
+
+.inputError{
+    filter: drop-shadow(0px 0px 0.08rem #ff2b0e);
+    box-shadow: none !important;
+}
+
+.alert{
+    height: 34px !important;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+    background-color: #27798f;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+    background: #E4E8EB;
+}
+
+::ng-deep .mat-progress-bar {
+    border-radius: 5px;
+}
+
+.img-profile{
+    display: flex;
+    margin: 16px 0;
+    width: 100%;
+    height: 100%;
+    min-width: 250px;
+    max-width: 250px;
+    min-height: 250px;
+    max-height: 250px;
+    border: solid 0.5px #777;
+    object-fit: cover;
+  }
